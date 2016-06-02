@@ -1,6 +1,7 @@
 <html ng-app="app">
 <head>
     <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="application.css" rel="stylesheet">
     <script src="angular.js"></script>
     <script src="main.js"></script>
     <script src="contract-edit.js"></script>
@@ -13,97 +14,184 @@
             <span class="icon-bar"></span><a href="../" class="navbar-brand">Contract Fulfillment System</a>
         </div>
         <div class="nav navbar-nav navbar-right">
-            <span style="color:white;">Welcome chunmei</span>
+            <span style="color:white;">Welcome {{currentUser}}</span>
         </div>
     </div>
 </header>
 
 <div ng-controller="contractEditCtrl">
     <div class="container">
-        <h1>Contract</h1>
+        <span style="font-size:36px;">Contract</span>
 
-        <h3>Customer Contact Information</h3>
-        <hr>
-        <table style="margin-left:20px;">
-            <tr>
-                <td><label>Company</label></td>
-                <td><input class="form-control" ng-model="contact.company"/></td>
-            </tr>
-            <tr>
-                <td><label>Reg Number</label></td>
-                <td><input class="form-control" ng-model="contact.regNumber"/></td>
-            </tr>
-            <tr>
-                <td><label>Primary Contact</label></td>
-                <td><input class="form-control" ng-model="contact.primaryContact"/></td>
-            </tr>
-            <tr>
-                <td><label>Title</label></td>
-                <td><input class="form-control" ng-model="contact.title"/></td>
-            </tr>
-            <tr>
-                <td><label>Address</label></td>
-                <td><input class="form-control" ng-model="contact.address"/></td>
-            </tr>
-            <tr>
-                <td><label>Town Postal Code</label></td>
-                <td><input class="form-control" ng-model="contact.postcode"/></td>
-            </tr>
-            <tr>
-                <td><label>Phone</label></td>
-                <td><input class="form-control" ng-model="contact.phone"/></td>
-            </tr>
-            <tr>
-                <td><label>Email</label></td>
-                <td><input class="form-control" ng-model="contact.email"/></td>
-            </tr>
-            <tr>
-                <td><label>Fax</label></td>
-                <td><input class="form-control" ng-model="contact.fax"/></td>
-            </tr>
-        </table>
+        <div class="pull-right">
+            <input type="button" class="btn btn-default" value="New"
+                   ng-click="setStatus('new')"
+                   ng-disabled="!isNextStatus('new')"
+                   ng-class="{'btn-success': isDone('new')}">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+            <input type="button" class="btn btn-default btn-success" value="Proposal"
+                   ng-click="setStatus('proposal')"
+                   ng-disabled="!isNextStatus('proposal')"
+                   ng-class="{'btn-success': isDone('proposal')}">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+            <input type="button" class="btn btn-default" value="Pending"
+                   ng-click="setStatus('pending')"
+                   ng-disabled="!isNextStatus('pending')"
+                   ng-class="{'btn-success': isDone('pending')}">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+            <input type="button" class="btn btn-default" value="Paid"
+                   ng-click="setStatus('paid')"
+                   ng-disabled="!isNextStatus('paid')"
+                   ng-class="{'btn-success': isDone('paid')}">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+            <input type="button" class="btn btn-default" value="Finished"
+                   ng-click="setStatus('finished')"
+                   ng-disabled="!isNextStatus('finished')"
+                   ng-class="{'btn-success': isDone('finished')}">
 
-        <h3>Billing Contact Information</h3>
-        <hr>
-        <table style="margin-left:20px;">
-            <tr>
-                <td><label>Company</label></td>
-                <td><input class="form-control" ng-model="bill.company"/></td>
-            </tr>
-            <tr>
-                <td><label>Primary Contact</label></td>
-                <td><input class="form-control" ng-model="bill.primaryContact"/></td>
-            </tr>
-            <tr>
-                <td><label>Title</label></td>
-                <td><input class="form-control" ng-model="bill.title"/></td>
-            </tr>
-            <tr>
-                <td><label>Address</label></td>
-                <td><input class="form-control" ng-model="bill.address"/></td>
-            </tr>
-            <tr>
-                <td><label>Town Postal Code</label></td>
-                <td><input class="form-control" ng-model="bill.postcode"/></td>
-            </tr>
-            <tr>
-                <td><label>Phone</label></td>
-                <td><input class="form-control" ng-model="bill.phone"/></td>
-            </tr>
-            <tr>
-                <td><label>Email</label></td>
-                <td><input class="form-control" ng-model="bill.email"/></td>
-            </tr>
-            <tr>
-                <td><label>Fax</label></td>
-                <td><input class="form-control" ng-model="bill.fax"/></td>
-            </tr>
-        </table>
+            <div ng-if="isDone('pending')" style="padding-top: 10px;">
+                <input class="pull-right" required ng-if="!hasContractNumber" ng-model="contract.contractNumber">
+                <label class="pull-right">Contract Number </label>
+                <span class="pull-right" ng-if="hasContractNumber">Contract Number: {{contract.contractNumber}}</span>
+            </div>
+        </div>
 
+        <i style="font-size:11px; color:gray;">Created at {{contract.createDt}}, and last modified at
+            {{contract.lastModified}}.</i>
+
+        <div style="padding-top: 10px;">
+            <input type="button" class="btn btn-primary" ng-click="save()" value="Save All My Changes">
+        </div>
+
+        <h3>Contract Type</h3>
+
+        <div class="container">
+            <div style="padding-bottom: 10px;"><input ng-disabled="isReadOnly" ng-model="contract.isNewCustomer"
+                                                      type="checkbox"><span> New Customer</span>
+            </div>
+
+            <div ng-if="!isReadOnly" class="row">
+                <div class="col-sm-1">
+                    <label>AccountDID</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" ng-model="contract.accountdid">
+                </div>
+                <div class="col-sm-1">
+                    <label>Sales Rep
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <input readonly class="form-control" ng-model="currentUser">
+                </div>
+            </div>
+
+            <div ng-if="isReadOnly">
+                <h4>AccountDID: {{contract.accountdid}}, Sales Rep: {{contract.userId}}</h4>
+            </div>
+
+            <div class="bs-callout bs-callout-info" ng-click="isContactCollapsed = !isContactCollapsed">
+                <span class="sectionTitle">Contact Information: </span>
+                <b>{{contact.company}}</b>
+                <i class="sectionTitle pull-right glyphicon glyphicon-chevron-down"
+                   ng-class="{'glyphicon-chevron-right': isContactCollapsed, 'glyphicon-chevron-down': !isContactCollapsed}"></i>
+            </div>
+
+            <div ng-show="!isContactCollapsed">
+                <table>
+                    <tr>
+                        <td><label>Company</label></td>
+                        <td><input class="form-control" ng-model="contact.company"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Reg Number</label></td>
+                        <td><input class="form-control" ng-model="contact.regNumber"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Primary Contact</label></td>
+                        <td><input class="form-control" ng-model="contact.primaryContact"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Title</label></td>
+                        <td><input class="form-control" ng-model="contact.title"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Address</label></td>
+                        <td><input class="form-control" ng-model="contact.address"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Town Postal Code</label></td>
+                        <td><input class="form-control" ng-model="contact.postcode"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Phone</label></td>
+                        <td><input class="form-control" ng-model="contact.phone"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email</label></td>
+                        <td><input class="form-control" ng-model="contact.email"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Fax</label></td>
+                        <td><input class="form-control" ng-model="contact.fax"/></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="bs-callout bs-callout-info" ng-click="isBillingCollapsed = !isBillingCollapsed">
+                <span class="sectionTitle">Billing Information: </span>
+                <b>{{bill.company}}</b>
+                <i class="sectionTitle pull-right glyphicon glyphicon-chevron-down"
+                   ng-class="{'glyphicon-chevron-right': isBillingCollapsed, 'glyphicon-chevron-down': !isBillingCollapsed}"></i>
+            </div>
+
+            <div ng-show="!isBillingCollapsed">
+                <div ng-if="!isReadOnly">
+                    <input type="button" class="btn btn-link pull-right" ng-click="copyContact()"
+                           value="Copy Billing Info from Contact Info">
+                </div>
+
+                <table>
+                    <tr>
+                        <td><label>Company</label></td>
+                        <td><input class="form-control" ng-readonly="isReadOnly" ng-model="bill.company"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Primary Contact</label></td>
+                        <td><input class="form-control" ng-model="bill.primaryContact"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Title</label></td>
+                        <td><input class="form-control" ng-model="bill.title"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Address</label></td>
+                        <td><input class="form-control" ng-model="bill.address"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Town Postal Code</label></td>
+                        <td><input class="form-control" ng-model="bill.postcode"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Phone</label></td>
+                        <td><input class="form-control" ng-model="bill.phone"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email</label></td>
+                        <td><input class="form-control" ng-model="bill.email"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Fax</label></td>
+                        <td><input class="form-control" ng-model="bill.fax"/></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
 
         <h3>General Agreement</h3>
-        <hr>
-        <div class="row">
+
+        <div class="container row">
             <label class="col-md-2">Start Time:</label>
 
             <div class="col-md-3">
@@ -118,28 +206,31 @@
         </div>
 
         <h3>Product List</h3>
-        <div class="row">
-            <label class="col-md-2">Product Code</label>
-            <label class="col-md-1">Taxable</label>
-            <label class="col-md-1">Free</label>
-            <label class="col-md-2">Price</label>
-            <label class="col-md-2">Units</label>
-            <label class="col-md-2">Start Date</label>
-            <label class="col-md-2">End Date</label>
-        </div>
-        <div ng-repeat="product in contract.products">
+
+        <div class="container">
             <div class="row">
-                <span class="col-md-2">{{product.id}}</span>
-                <span class="col-md-1">{{product.taxable}}</span>
-                <span class="col-md-1">{{product.free}}</span>
-                <span class="col-md-2">{{product.price}}</span>
-                <span class="col-md-2">{{product.units}}</span>
-                <span class="col-md-2">{{product.startDate}}</span>
-                <span class="col-md-2">{{product.endDate}}</span>
+                <label class="col-md-2">Product Code</label>
+                <label class="col-md-1">Taxable</label>
+                <label class="col-md-1">Free</label>
+                <label class="col-md-2">Price</label>
+                <label class="col-md-2">Units</label>
+                <label class="col-md-2">Start Date</label>
+                <label class="col-md-2">End Date</label>
+            </div>
+            <div ng-repeat="product in contract.products">
+                <div class="row">
+                    <span class="col-md-2">{{product.id}}</span>
+                    <span class="col-md-1">{{product.taxable}}</span>
+                    <span class="col-md-1">{{product.free}}</span>
+                    <span class="col-md-2">{{product.price}}</span>
+                    <span class="col-md-2">{{product.units}}</span>
+                    <span class="col-md-2">{{product.startDate}}</span>
+                    <span class="col-md-2">{{product.endDate}}</span>
+                </div>
             </div>
         </div>
 
-        <h3>Notes</h3>
+        <h5 style="color: gray">Notes</h5>
         <textarea class="form-control" rows="5" ng-model="contract.notes"></textarea>
     </div>
 
