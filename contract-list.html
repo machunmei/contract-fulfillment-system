@@ -10,7 +10,7 @@
   <header class="navbar navbar-inverse navbar-static-top bs-docs-nav" id="top" role="banner">
      <div class="container-fluid">
       <div class="navbar-header">
-        <span class="icon-bar"></span><a href="../" class="navbar-brand">Contract Fulfillment System</a>
+        <span class="" ass="icon-bar"></span><a href="../" class="navbar-brand">Contract Fulfillment System</a>
       </div>
       <div class="nav navbar-nav navbar-right">
           <span style="color:white;">Welcome chunmei</span>
@@ -21,6 +21,82 @@
 <div ng-controller="contractListCtrl">
   <div class="container">
  	  <h1>Contract List</h1>
+
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Company Name</th>
+          <th>Contract Number</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat-start="contract in completeContracts">
+          <td>
+            <a href="#" ng-click="showHideProducts(contract)">
+            <span type="button" class="glyphicon glyphicon-th-list"></span>
+            </a>
+          </td>
+          <td>{{contract.companyName}}</td>
+          <td ng-if="contract.contractNumber">
+            {{contract.contractNumber}}
+            <button type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-send"></span> Send Email
+            </button>
+          </td>
+          <td ng-if="!contract.contractNumber"><input ng-bind = 'contract.contractNumber'></td>
+          <td>${{contract.totalPrice}}</td>
+          <td>{{contract.status}}</td>
+          <td>{{contract.startDate}}</td>
+          <td>{{contract.endDate}}</td>
+        </tr>
+        <tr ng-repeat-end>
+           <td colspan=7 ng-show="contract.showProducts">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Product</th>
+                <th>Taxable</th>
+                <th>Price</th>
+                <th>Units</th>
+                <th>IsFree</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat = 'product in contract.products'>
+                  <td>{{product.title}}</td>
+                  <td>{{product.taxable}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.units}}</td>
+                  <td>{{product.isFree}}</td>
+                  <td>{{product.status}}</td>
+                  <td>{{product.startDate}}</td>
+                  <td>{{product.endDate}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+        </tr>
+
+        <tr>
+
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
 
   </div>
 </div>
