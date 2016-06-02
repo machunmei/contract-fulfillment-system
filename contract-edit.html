@@ -27,29 +27,29 @@
             <input type="button" class="btn btn-default" value="New"
                    ng-click="setStatus('new')"
                    ng-disabled="!isNextStatus('new')"
-                   ng-class="{'btn-success': isDone('new')}">
+                   ng-class="{'btn-success': isDone('new'),'btn-warning':isNextStatus('new')}">
             <span class="glyphicon glyphicon-arrow-right"></span>
             <input type="button" class="btn btn-default btn-success" value="Proposal"
                    ng-click="setStatus('proposal')"
                    ng-disabled="!isNextStatus('proposal')"
-                   ng-class="{'btn-success': isDone('proposal')}">
+                   ng-class="{'btn-success': isDone('proposal'),'btn-warning':isNextStatus('proposal')}">
             <span class="glyphicon glyphicon-arrow-right"></span>
             <input type="button" class="btn btn-default" value="Pending"
                    ng-click="setStatus('pending')"
                    ng-disabled="!isNextStatus('pending')"
-                   ng-class="{'btn-success': isDone('pending')}">
+                   ng-class="{'btn-success': isDone('pending'),'btn-warning':isNextStatus('pending')}">
             <span class="glyphicon glyphicon-arrow-right"></span>
             <input type="button" class="btn btn-default" value="Paid"
                    ng-click="setStatus('paid')"
                    ng-disabled="!isNextStatus('paid')"
-                   ng-class="{'btn-success': isDone('paid')}">
+                   ng-class="{'btn-success': isDone('paid'), 'btn-warning':isNextStatus('paid')}">
             <span class="glyphicon glyphicon-arrow-right"></span>
             <input type="button" class="btn btn-default" value="Finished"
                    ng-click="setStatus('finished')"
                    ng-disabled="!isNextStatus('finished')"
-                   ng-class="{'btn-success': isDone('finished')}">
+                   ng-class="{'btn-success': isDone('finished'), 'btn-warning':isNextStatus('finished')}">
 
-            <div ng-if="isDone('pending')" style="padding-top: 10px;">
+            <div ng-if="isDone('pending')" style="padding-top:10px;">
                 <input class="pull-right" required ng-if="!hasContractNumber" ng-model="contract.contractNumber">
                 <label class="pull-right">Contract Number </label>
                 <span class="pull-right" ng-if="hasContractNumber">Contract Number: {{contract.contractNumber}}</span>
@@ -129,7 +129,7 @@
                     </tr>
                     <tr>
                         <td><label>Email</label></td>
-                        <td><input class="form-control" ng-model="contact.email"/></td>
+                        <td><input type="email" class="form-control" ng-model="contact.email"/></td>
                     </tr>
                     <tr>
                         <td><label>Fax</label></td>
@@ -178,7 +178,7 @@
                     </tr>
                     <tr>
                         <td><label>Email</label></td>
-                        <td><input class="form-control" ng-model="bill.email"/></td>
+                        <td><input type="email" class="form-control" ng-model="bill.email"/></td>
                     </tr>
                     <tr>
                         <td><label>Fax</label></td>
@@ -208,27 +208,73 @@
         <h3>Product List</h3>
 
         <div class="container">
-            <div class="row">
-                <label class="col-md-2">Product Code</label>
-                <label class="col-md-1">Taxable</label>
-                <label class="col-md-1">Free</label>
-                <label class="col-md-2">Price</label>
-                <label class="col-md-2">Units</label>
-                <label class="col-md-2">Start Date</label>
-                <label class="col-md-2">End Date</label>
-            </div>
-            <div ng-repeat="product in contract.products">
-                <div class="row">
-                    <span class="col-md-2">{{product.id}}</span>
-                    <span class="col-md-1">{{product.taxable}}</span>
-                    <span class="col-md-1">{{product.free}}</span>
-                    <span class="col-md-2">{{product.price}}</span>
-                    <span class="col-md-2">{{product.units}}</span>
-                    <span class="col-md-2">{{product.startDate}}</span>
-                    <span class="col-md-2">{{product.endDate}}</span>
+            <table class="table table-striped" style="table-layout:fixed">
+                <thead>
+                <tr>
+                    <td width="10%">Product Code</td>
+                    <td width="5%">Taxable</td>
+                    <td width="5%">Free</td>
+                    <td width="9%">Price</td>
+                    <td width="5%">GST Price</td>
+                    <td width="8%">Units</td>
+                    <td width="14%">Start Date</td>
+                    <td width="14%">End Date</td>
+                    <td width="15%">Advanced Option</td>
+                    <td width="10%">Status</td>
+                    <td width="5%">Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="product in contract.products">
+                    <td>{{product.id}}</td>
+                    <td><input type="checkbox" disabled ng-model="product.taxable"></td>
+                    <td><input type="checkbox" ng-click="resetPrice($index)" ng-model="product.free"></td>
+                    <td><input class="form-control" type="number" ng-disabled="product.free" ng-model="product.price" ng-blur="countPrices()">
+                    </td>
+                    <td><span>{{product.gstPrice}}</span></td>
+                    <td><input class="form-control" type="number" ng-model="product.units" ng-blur="countPrices()"></td>
+                    <td><input class="form-control" type="date" ng-model="product.startDate"></td>
+                    <td><input class="form-control" type="date" ng-model="product.endDate"></td>
+                    <td><input class="form-control" type="text" ng-model="product.options"></td>
+                    <td><input class="form-control" type="text" ng-model="product.status"></td>
+                    <td><span ng-click="removeProduct($index)" class="glyphicon glyphicon-remove"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <div class="pull-right label-warning" style="padding:10px; margin-right:20px;">
+                    <div><span>Total (exclusive GST): <b>{{contract.totalNonGST}}</b></span></div>
+                    <div><span>Applicable GST: <b>{{contract.totalGST}}</b> </span></div>
+                    <div><span>Total (Inclusive GST): <b>{{contract.totalPrice}}</b></span></div>
                 </div>
+
             </div>
+
+            <!--<tr>-->
+            <!--<td>{{product.id}}</td>-->
+            <!--<td>{{product.taxable? "Yes": "No"}}</td>-->
+            <!--<td>{{product.free? "Yes": "No"}}</td>-->
+            <!--<td>{{product.price}}</td>-->
+            <!--<td>{{product.units}}</td>-->
+            <!--<td>{{product.startDate}}</td>-->
+            <!--<td>{{product.endDate}}</td>-->
+            <!--<td></td>-->
+            <!--<td><input type="button" ng-click="addProduct()" class="btn btn-success" value="Add"></td>-->
+            <!--</tr>-->
+
+            <!--<ui-select name="fileName"-->
+                       <!--ng-model="field.fileName"-->
+                       <!--required>-->
+                <!--<ui-select-match placeholder="File Name">{{ $select.selected }}</ui-select-match>-->
+                <!--<ui-select-choices repeat="translation in translations | filter: $select.search">-->
+                    <!--<div>{{ translation }}</div>-->
+                <!--</ui-select-choices>-->
+            <!--</ui-select>-->
+
+            <input type="button" ng-click="addProduct()" class="btn btn-success" value="Add">
+
         </div>
+
 
         <h5 style="color: gray">Notes</h5>
         <textarea class="form-control" rows="5" ng-model="contract.notes"></textarea>
