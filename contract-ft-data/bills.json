@@ -1,0 +1,24 @@
+[
+  {
+    "contract-id":"123",
+    "company": "careerbuilder",
+    "address": "agagag",
+    "postcode": "200120",
+    "primary-contact":"chunmei",
+    "title": "software engineer",
+    "email": "a@b.com",
+    "phone":"150xxxxxx",
+    "fax":"77887xxxx"
+  },
+  {
+    "contract-id":"124",
+    "company": "careerbuilder",
+    "address": "agagag",
+    "postcode": "200120",
+    "primary-contact":"chunmei",
+    "title": "software engineer",
+    "email": "a@b.com",
+    "phone":"150xxxxxx",
+    "fax":"77887xxxx"
+  }
+]

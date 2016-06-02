@@ -1,0 +1,98 @@
+[
+  {
+    "id": "123",
+    "contract-number" : "",
+    "status" : "new",
+    "created-dt": "2016-6-1",
+    "last-modified": "2016-6-2",
+    "start-date":"2016-6-1",
+    "end-date":"2017-6-1",
+    "accountdid": "",
+    "is-new-customer": "true",
+    "total": "",
+    "notes": "",
+    "products": [
+      {
+        "id": "FMBMBAN",
+        "status": "new",
+        "units": "10",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "false",
+        "taxable": "true",
+        "price": "100",
+        "gst-price":"11"
+      },
+      {
+        "id": "FMBMBAN",
+        "status": "new",
+        "units": "2",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "true",
+        "taxable": "false",
+        "price": "0",
+        "gst-price":""
+      },
+      {
+        "id": "FPBMOM",
+        "status": "new",
+        "units": "10",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "false",
+        "taxable": "true",
+        "price": "10",
+        "gst-price":"2"
+      }
+    ]
+  },
+
+  {
+    "id": "124",
+    "contract-number" : "CT-1233",
+    "status" : "contact-generated",
+    "created-dt": "2016-3-1",
+    "last-modified": "2016-5-2",
+    "start-date":"",
+    "end-date":"",
+    "accountdid": "",
+    "total": "",
+    "notes": "",
+    "products": [
+      {
+        "id": "FMBMBAN",
+        "status": "new",
+        "units": "10",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "false",
+        "taxable": "true",
+        "price": "100",
+        "gst-price":"22"
+      },
+      {
+        "id": "FMBMBAN",
+        "status": "new",
+        "units": "2",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "true",
+        "taxable": "false",
+        "price": "0",
+        "gst-price":""
+      },
+      {
+        "id": "FPBMOM",
+        "status": "new",
+        "units": "10",
+        "start-date": "",
+        "end-date": "",
+        "is-free": "false",
+        "taxable": "true",
+        "price": "10",
+        "gst-price":"22"
+      }
+    ]
+  }
+]

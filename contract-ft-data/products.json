@@ -1,0 +1,37 @@
+[{
+  "id": "FMBMBAN",
+  "title": "BrightMinds eBanner",
+  "description": "BrightMinds eBanner description",
+  "group": "BrightMinds",
+  "line": "Niche Sites",
+  "sub-line": "BannerAds",
+  "taxable":"true"
+},
+{
+  "id": "FPBMOM",
+  "title": "BrightMinds Online Media",
+  "description": "BrightMinds Online Media description",
+  "group": "BrightMinds",
+  "line": "Niche Sites",
+  "sub-line": "BannerAds",
+  "taxable":"true"
+},
+{
+  "id": "FPJCMAGEM",
+  "title": "BrightMinds eMagazine Media",
+  "description": "BrightMinds eMagazine Media description",
+  "group": "BrightMinds",
+  "line": "Niche Sites",
+  "sub-line": "BannerAds",
+  "taxable":"false"
+},
+{
+  "id": "FMBMAOP",
+  "title": "BrightMinds eMagazine Media",
+  "description": "BrightMinds eMagazine Media description",
+  "group": "BrightMinds",
+  "line": "Employer Services",
+  "sub-line": "CareerFairs",
+  "taxable":"true"
+}
+]

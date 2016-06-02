@@ -1,0 +1,28 @@
+[
+  {
+    "id" : "1",
+    "name" : "chunmei",
+    "status": "active",
+    "email": "chunmei.ma@careerbuilder.com",
+    "team" : "sales",
+    "leader": "2"
+  },
+  {
+    "id" : "2",
+    "name" : "jie",
+    "status": "active",
+    "email": "jie.yang@careerbuilder.com",
+    "team" : "sales",
+    "leader": ""
+  },
+  {
+    "id" : "3",
+    "name" : "shenghua",
+    "status": "active",
+    "email": "shenghua.lian@careerbuilder.com",
+    "team" : "sales",
+    "leader": "2"
+  }
+
+
+]
