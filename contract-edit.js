@@ -79,8 +79,8 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
         ]
     };
 
-    $scope.groups = ["BrightMinds", "JobsCentral"];
-    $scope.productLines = ["Resume Database", "Employer Services"];
+    $scope.groups = ["BrightMinds", "BrightMinds", "JobsCentral", "JobsCentral Learning Fair", "JobsCentral Learning", "Talent Network"];
+    $scope.productLines = ["Niche Sites", "Resume Database", "Email and Display Ads", "Employer Services", "BannerAds", "Human Capital Software Solutions", "Other Revenue"];
     $scope.subLines = ["RDB", "BannerAds"];
 
     $scope.products = [
@@ -175,13 +175,13 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
     };
 
     $scope.addProduct = function () {
-        if($scope.newProduct.id == ''){
+        if ($scope.newProduct.id == '') {
             alert('Please select the product you want to add.')
             return;
         }
 
 
-        $scope.contract.products.push( {
+        $scope.contract.products.push({
             "id": $scope.newProduct.id,
             "status": "new",
             "units": 0,
