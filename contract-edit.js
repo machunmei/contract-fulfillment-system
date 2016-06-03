@@ -1,8 +1,12 @@
 angular.module("app").controller("contractEditCtrl", ["$scope", "dataRepository",
     function ($scope, dataRepository) {
-        $scope.contact = dataRepository.getContact('123');
-        $scope.bill = dataRepository.getBillingInfo('123');
-        $scope.contract = dataRepository.getContract("123");
+        $scope.contractId = '123';
+
+        $scope.contact = dataRepository.getContact($scope.contractId);
+
+        console.log($scope.contact);
+        $scope.bill = dataRepository.getBillingInfo($scope.contractId);
+        $scope.contract = dataRepository.getContract($scope.contractId);
 
         $scope.groups = dataRepository.getGroups();
         $scope.productLines = dataRepository.getLines();
@@ -87,7 +91,7 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "dataRepository"
 
             $scope.countPrices();
         };
-        
+
         $scope.countPrices = function () {
             var totalNonGST = 0;
             var totalGST = 0;

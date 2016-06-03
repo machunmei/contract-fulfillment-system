@@ -76,7 +76,7 @@ angular.module('app')
             this.getContact = function (contractId) {
                 var contacts = JSON.parse(window.localStorage.getItem('contacts'));
                 for (var i = 0; i < contacts.length; i++) {
-                    if (contacts[i].id == contractId) {
+                    if (contacts[i].contractId == contractId) {
                         return contacts[i];
                     }
                 }
@@ -87,7 +87,7 @@ angular.module('app')
             this.getBillingInfo = function (contractId) {
                 var billings = JSON.parse(window.localStorage.getItem('billings'));
                 for (var i = 0; i < billings.length; i++) {
-                    if (billings[i].id == contractId) {
+                    if (billings[i].contractId == contractId) {
                         return billings[i];
                     }
                 }

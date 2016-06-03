@@ -196,13 +196,13 @@
             <label class="col-md-2">Start Time:</label>
 
             <div class="col-md-3">
-                <input class="form-control" ng-model="contract.startDate" type="date">
+                <input class="form-control" ng-model="contract.startDate" type="text">
             </div>
 
             <label class="col-md-2">End Time:</label>
 
             <div class="col-md-3">
-                <input class="form-control" ng-model="contract.endDate" type="date">
+                <input class="form-control" ng-model="contract.endDate" type="text">
             </div>
         </div>
 
@@ -235,8 +235,8 @@
                     </td>
                     <td><span>{{product.gstPrice}}</span></td>
                     <td><input class="form-control" type="number" ng-model="product.units" ng-blur="countPrices()"></td>
-                    <td><input class="form-control" type="date" ng-model="product.startDate"></td>
-                    <td><input class="form-control" type="date" ng-model="product.endDate"></td>
+                    <td><input class="form-control" type="text" ng-model="product.startDate"></td>
+                    <td><input class="form-control" type="text" ng-model="product.endDate"></td>
                     <td><input class="form-control" type="text" ng-model="product.options"></td>
                     <td><input class="form-control" type="text" ng-model="product.status"></td>
                     <td><span ng-click="removeProduct($index)" class="glyphicon glyphicon-remove"></span></td>
