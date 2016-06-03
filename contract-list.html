@@ -21,7 +21,31 @@
 <div ng-controller="contractListCtrl">
   <div class="container">
  	  <h1>Contract List</h1>
+    <div>
+        <div class="row filter" id="contract-filter">
+          <div ng-repeat = 'rule in filterRules'>
+            <div class="col-sm-4">
+              <select ng-model="rule.key" ng-options="filterKey.key as filterKey.value for filterKey in filterKeys" class="form-control input-sm filter-item"></select>
+            </div>
+            <div class="col-sm-2"><center>
+              <select ng-model="rule.operator" ng-options="operator.key as operator.value for operator in filterOperators" class="form-control input-sm filter-item"></select>
+            </center></div>
+            <div class="col-sm-4">
+              <input ng-model="rule.value" class="form-control input-sm filter-item" />
+            </div>
+            <div class="col-sm-2">
+              <a href="#" ng-click="removeFilterRule(rule)">
+                <span type="button" class="glyphicon glyphicon-remove filter-item"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="#" ng-click="addFilterRule()">
+            <span type="button" class="glyphicon glyphicon-plus"></span> Add Filter
+        </a>
 
+        <button type="button" class="btn btn-default" ng-click="filterContracts()">Run Filter</button>
+    <div>
     <div class="table-responsive">
 
       <table class="table">

@@ -198,5 +198,64 @@ $scope.showHideProducts = function(contract){
   contract.showProducts = !contract.showProducts ;
 }
 
+$scope.filterRules = [
+  {"key": "companyName", "operator": "=", "value":"Careerbuilder"},
+  {"key": "status", "operator": "=", "value":"pending"}
+];
+$scope.filterKeys = [{"key" : "companyName", "value": "Company Name"}, {"key" : "status", "value":"Status"}];
+$scope.filterOperators = [{"key":">", "value":">"}, {"key":"=", "value":"="}, {"key":"<", "value":"<"}];
+
+$scope.addFilterRule = function() {
+  var rule = {"key": "", "operator": "", "value":""};
+  $scope.filterRules.push(rule);
+}
+
+$scope.removeFilterRule = function(rule) {
+  $scope.filterRules = $scope.filterRules.filter(r => r.key != rule.key);
+}
+
+$scope.filterContracts = function() {
+  var contracts = $scope.contracts;
+  var filterRules = $scope.filterRules;
+  var filteredContracts = [];
+  contracts.filter(contract => {
+    return passRules(contract, $scope.filterRules);
+  });
+
+  $scope.contracts = filteredContracts;
+}
+
+$scope.filteredContracts = $scope.contracts;
+
+function passFilter(contract, filterRule) {
+  if(filterRule.operator == "=") {
+    if(contract[filterRule.key] == filterRule.value){
+      return true;
+    }
+  } else {
+    var cValue = parseInt(contract[filterRule.key]);
+    var filterValue = parseInt(filterRule.value);
+
+    if(filterRule.operator == ">") {
+      if(cValue > filterValue) {
+        return true;
+      }
+    } else if(filterRule.operator == "<") {
+      if(cValue < filterValue) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function passRules(contract, filterRules) {
+  for(var i=0; i<filterRules.length; i++){
+    if(passFilter(contract, filterRules[i])){
+      return true;
+    }
+  }
+}
 
 }]);
