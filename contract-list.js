@@ -173,6 +173,7 @@ $scope.getProductInfoByProductId = function(productId){
 }
 
 $scope.completeContracts = getCompleteContracts();
+$scope.filteredContracts = getCompleteContracts();
 
 function getCompleteContracts() {
   var completeContracts = $scope.contracts;
@@ -202,7 +203,12 @@ $scope.filterRules = [
   {"key": "companyName", "operator": "=", "value":"Careerbuilder"},
   {"key": "status", "operator": "=", "value":"pending"}
 ];
-$scope.filterKeys = [{"key" : "companyName", "value": "Company Name"}, {"key" : "status", "value":"Status"}];
+$scope.filterKeys = [
+  {"key" : "companyName", "value": "Company Name"},
+  {"key" : "status", "value":"Status"},
+  {"key" : "startDate", "value":"Start Date"}
+];
+
 $scope.filterOperators = [{"key":">", "value":">"}, {"key":"=", "value":"="}, {"key":"<", "value":"<"}];
 
 $scope.addFilterRule = function() {
@@ -214,18 +220,21 @@ $scope.removeFilterRule = function(rule) {
   $scope.filterRules = $scope.filterRules.filter(r => r.key != rule.key);
 }
 
-$scope.filterContracts = function() {
-  var contracts = $scope.contracts;
-  var filterRules = $scope.filterRules;
-  var filteredContracts = [];
-  contracts.filter(contract => {
+$scope.runFilter = function() {
+  var contracts = $scope.completeContracts;
+
+  if($scope.filterRules.length == 0){
+    return contracts;
+  }
+
+  $scope.filteredContracts = contracts.filter(contract => {
     return passRules(contract, $scope.filterRules);
   });
-
-  $scope.contracts = filteredContracts;
 }
 
-$scope.filteredContracts = $scope.contracts;
+$scope.getContractEditUri = function(contractId) {
+  return "/contract-edit.html?user=cma&contractId=" + contractId;
+}
 
 function passFilter(contract, filterRule) {
   if(filterRule.operator == "=") {
@@ -233,8 +242,8 @@ function passFilter(contract, filterRule) {
       return true;
     }
   } else {
-    var cValue = parseInt(contract[filterRule.key]);
-    var filterValue = parseInt(filterRule.value);
+    var cValue = Date.parse(contract[filterRule.key]);
+    var filterValue = Date.parse(filterRule.value);
 
     if(filterRule.operator == ">") {
       if(cValue > filterValue) {
