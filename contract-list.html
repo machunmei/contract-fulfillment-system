@@ -2,12 +2,13 @@
 <head>
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="angular.js"></script>
-  <script src="main.js"></script>
-	<script src="contract-list.js"></script>
   <link href="application.css" rel="stylesheet">
+    <script src="main.js"></script>
+  <script src="data-repo.js"></script>
+    <script src="contract-list.js"></script>
 </head>
 
-<body>
+<body ng-controller="MainCtrl">
   <header class="navbar navbar-inverse navbar-static-top bs-docs-nav" id="top" role="banner">
      <div class="container-fluid">
       <div class="navbar-header">
@@ -126,6 +127,8 @@
         </tr>
         </tbody>
       </table>
+
+      <button type="button" class="btn btn-success" ng-click="addNewContract">Add New Contract</button>
 
     </div>
 
