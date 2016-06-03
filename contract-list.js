@@ -19,7 +19,7 @@ angular.module("app").controller("contractListCtrl", ["$scope", "dataRepository"
       completeContracts.forEach(function(contract) {
         //var company = $scope.companies.filter(company => company.contractId === contract.id)[0];
         var company = dataRepository.getContact(contract.id);
-        contract["companyName"] = company.companyName;
+        contract["companyName"] = company.company;
 
         contract.products.forEach(function(product) {
           var product_info = $scope.products_info.filter(info => info.id === product.id)[0];
