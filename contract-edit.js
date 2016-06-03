@@ -30,7 +30,7 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
         "id": "123",
         "userId": "cma",
         "contractNumber": "",
-        "status": "pending",
+        "status": "new",
         "createDt": "06/01/2016",
         "lastModified": "06/02/2016",
         "startDate": new Date("06/01/2016"),
@@ -79,6 +79,49 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
         ]
     };
 
+    $scope.groups = ["BrightMinds", "JobsCentral"];
+    $scope.productLines = ["Resume Database", "Employer Services"];
+    $scope.subLines = ["RDB", "BannerAds"];
+
+    $scope.products = [
+        {
+            "id": "FMBMBAN",
+            "title": "BrightMinds eBanner",
+            "description": "BrightMinds eBanner description",
+            "group": "BrightMinds",
+            "line": "Niche Sites",
+            "sub-line": "BannerAds",
+            "taxable": "true"
+        },
+        {
+            "id": "FPBMOM",
+            "title": "BrightMinds Online Media",
+            "description": "BrightMinds Online Media description",
+            "group": "BrightMinds",
+            "line": "Niche Sites",
+            "sub-line": "BannerAds",
+            "taxable": "true"
+        },
+        {
+            "id": "FPJCMAGEM",
+            "title": "BrightMinds eMagazine Media",
+            "description": "BrightMinds eMagazine Media description",
+            "group": "BrightMinds",
+            "line": "Niche Sites",
+            "sub-line": "BannerAds",
+            "taxable": "false"
+        },
+        {
+            "id": "FMBMAOP",
+            "title": "BrightMinds eMagazine Media",
+            "description": "BrightMinds eMagazine Media description",
+            "group": "JobsCentral",
+            "line": "Employer Services",
+            "sub-line": "CareerFairs",
+            "taxable": "true"
+        }
+    ];
+
     $scope.currentUser = $location.search()['user'] || 'chunmei';
     $scope.taxRate = 0.07;
 
@@ -126,19 +169,30 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
 
     $scope.newProduct = {
         "id": "",
-        "status": "",
-        "units": "10",
-        "startDate": new Date("06/01/2016"),
-        "endDate": new Date("07/01/2016"),
-        "free": false,
-        "taxable": true,
-        "price": "100",
-        "gst-price": "11",
-        "options": ""
+        "group": "",
+        "line": "",
+        "subline": ""
     };
 
     $scope.addProduct = function () {
+        if($scope.newProduct.id == ''){
+            alert('Please select the product you want to add.')
+            return;
+        }
 
+
+        $scope.contract.products.push( {
+            "id": $scope.newProduct.id,
+            "status": "new",
+            "units": 0,
+            "startDate": new Date(),
+            "endDate": new Date(),
+            "free": false,
+            "taxable": true,
+            "price": 0,
+            "gstPrice": 0,
+            "options": ""
+        });
     };
 
     $scope.removeProduct = function (index) {
@@ -166,7 +220,7 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "$location", fun
             } else {
                 totalNonGST += prod.price * prod.units;
                 if (prod.taxable) {
-                    prod.gstPrice = prod.price * prod.units * $scope.taxRate;
+                    prod.gstPrice = (prod.price * prod.units * $scope.taxRate).toFixed(2);
                     totalGST += prod.gstPrice;
                 }
             }

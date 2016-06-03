@@ -229,7 +229,8 @@
                     <td>{{product.id}}</td>
                     <td><input type="checkbox" disabled ng-model="product.taxable"></td>
                     <td><input type="checkbox" ng-click="resetPrice($index)" ng-model="product.free"></td>
-                    <td><input class="form-control" type="number" ng-disabled="product.free" ng-model="product.price" ng-blur="countPrices()">
+                    <td><input class="form-control" type="number" ng-disabled="product.free" ng-model="product.price"
+                               ng-blur="countPrices()">
                     </td>
                     <td><span>{{product.gstPrice}}</span></td>
                     <td><input class="form-control" type="number" ng-model="product.units" ng-blur="countPrices()"></td>
@@ -250,28 +251,46 @@
 
             </div>
 
-            <!--<tr>-->
-            <!--<td>{{product.id}}</td>-->
-            <!--<td>{{product.taxable? "Yes": "No"}}</td>-->
-            <!--<td>{{product.free? "Yes": "No"}}</td>-->
-            <!--<td>{{product.price}}</td>-->
-            <!--<td>{{product.units}}</td>-->
-            <!--<td>{{product.startDate}}</td>-->
-            <!--<td>{{product.endDate}}</td>-->
-            <!--<td></td>-->
-            <!--<td><input type="button" ng-click="addProduct()" class="btn btn-success" value="Add"></td>-->
-            <!--</tr>-->
+            <div style="clear:both;"></div>
 
-            <!--<ui-select name="fileName"-->
-                       <!--ng-model="field.fileName"-->
-                       <!--required>-->
-                <!--<ui-select-match placeholder="File Name">{{ $select.selected }}</ui-select-match>-->
-                <!--<ui-select-choices repeat="translation in translations | filter: $select.search">-->
-                    <!--<div>{{ translation }}</div>-->
-                <!--</ui-select-choices>-->
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Business Group</label>
+                    <select class="form-control" ng-model="newProduct.group">
+                        <option ng-repeat="group in groups">{{group}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Product Line</label>
+                    <select class="form-control" ng-model="newProduct.line">
+                        <option ng-repeat="line in productLines">{{line}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Sub Line</label>
+                    <select class="form-control" ng-model="newProduct.subline">
+                        <option ng-repeat="subline in subLines">{{subline}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label>Product Name</label>
+                    <select class="form-control" ng-model="newProduct.id">
+                        <option ng-repeat="product in products | filter: product.group == newProduct.group" ng-value="product.id">{{product.title}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" ng-click="addProduct()" class="btn btn-success" value="Add" style="margin-top:10px;">
+                </div>
+
+            </div>
+
+            <!--<ui-select name="group"-->
+            <!--required>-->
+            <!--<ui-select-match placeholder="Business Group">{{ $select.selected }}</ui-select-match>-->
+            <!--<ui-select-choices repeat="group in groups | filter: $select.search">-->
+            <!--<div>{{ group }}</div>-->
+            <!--</ui-select-choices>-->
             <!--</ui-select>-->
-
-            <input type="button" ng-click="addProduct()" class="btn btn-success" value="Add">
 
         </div>
 
