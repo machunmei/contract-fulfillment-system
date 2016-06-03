@@ -5,9 +5,10 @@
     <script src="angular.js"></script>
     <script src="main.js"></script>
     <script src="contract-edit.js"></script>
+    <script src="data-repo.js"></script>
 </head>
 
-<body>
+<body ng-controller="MainCtrl">
 <header class="navbar navbar-inverse navbar-static-top bs-docs-nav" id="top" role="banner">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -263,7 +264,8 @@
                 <div class="col-sm-2">
                     <label>Product Line</label>
                     <select class="form-control" ng-model="newProduct.line">
-                        <option ng-repeat="line in productLines">{{line}}</option>
+                        <option ng-repeat="line in productLines">{{line}}
+                        </option>
                     </select>
                 </div>
                 <div class="col-sm-2">
@@ -275,22 +277,17 @@
                 <div class="col-sm-3">
                     <label>Product Name</label>
                     <select class="form-control" ng-model="newProduct.id">
-                        <option ng-repeat="product in products | filter: product.group == newProduct.group" ng-value="product.id">{{product.title}}</option>
+                        <option ng-repeat="product in products "
+                                ng-value="product.id">{{product.title}}
+                        </option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <input type="button" ng-click="addProduct()" class="btn btn-success" value="Add" style="margin-top:10px;">
+                    <input type="button" ng-click="addProduct()" class="btn btn-success" value="Add"
+                           style="margin-top:10px;">
                 </div>
 
             </div>
-
-            <!--<ui-select name="group"-->
-            <!--required>-->
-            <!--<ui-select-match placeholder="Business Group">{{ $select.selected }}</ui-select-match>-->
-            <!--<ui-select-choices repeat="group in groups | filter: $select.search">-->
-            <!--<div>{{ group }}</div>-->
-            <!--</ui-select-choices>-->
-            <!--</ui-select>-->
 
         </div>
 
