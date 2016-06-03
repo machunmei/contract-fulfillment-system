@@ -6,7 +6,7 @@ angular.module('app').controller('MainCtrl', [
 
         localStorage.setItem('user', 'chunmei');
 
-        var contracts = {
+        var contracts = [{
             "id": "123",
             "userId": "cma",
             "contractNumber": "",
@@ -57,59 +57,39 @@ angular.module('app').controller('MainCtrl', [
                     "gstPrice": 2
                 }
             ]
-        };
-
+        }];
         localStorage.setItem('contracts', JSON.stringify(contracts));
 
-        var products = [
+        var contacts = [{
+            "contractId": "123",
+            "company": "careerbuilder",
+            "address": "US",
+            "postcode": "100100",
+            "regNumber": "reg123",
+            "primaryContact": "chunmei",
+            "title": "software engineer",
+            "email": "chunmei@cb.com",
+            "phone": "150xxxxxx",
+            "fax": "77887xxxx"
+        }];
+        localStorage.setItem('contacts',
+            JSON.stringify(contacts));
+
+        var billings = [
             {
-                "id": "FMBMBAN",
-                "title": "BrightMinds eBanner",
-                "description": "BrightMinds eBanner description",
-                "group": "BrightMinds",
-                "line": "Niche Sites",
-                "subline": "BannerAds",
-                "taxable": "true"
-            },
-            {
-                "id": "FPBMOM",
-                "title": "BrightMinds Online Media",
-                "description": "BrightMinds Online Media description",
-                "group": "BrightMinds",
-                "line": "Niche Sites",
-                "subline": "BannerAds",
-                "taxable": "true"
-            },
-            {
-                "id": "FPJCMAGEM",
-                "title": "BrightMinds eMagazine Media",
-                "description": "BrightMinds eMagazine Media description",
-                "group": "BrightMinds",
-                "line": "Niche Sites",
-                "subline": "BannerAds",
-                "taxable": "false"
-            },
-            {
-                "id": "FMBMAOP",
-                "title": "BrightMinds eMagazine Media",
-                "description": "BrightMinds eMagazine Media description",
-                "group": "JobsCentral",
-                "line": "Employer Services",
-                "subline": "CareerFairs",
-                "taxable": "true"
-            },
-            {
-                "id": "FMTNISPJC",
-                "title": "JobsCentral Talent Network",
-                "description": "BrightMinds eMagazine Media description",
-                "group": "Talent Network",
-                "line": "Human Capital Software Solutions",
-                "subline": "Talent Network International",
-                "taxable": "true"
-            }
-        ];
-        localStorage.setItem('products',
-            JSON.stringify(products));
+                "contractId": "123",
+                "company": "careerbuilder-china",
+                "address": "shanghai",
+                "postcode": "200120",
+                "primaryContact": "shenghua",
+                "title": "software engineer",
+                "email": "shenghua@cb.com",
+                "phone": "188xxxxxx",
+                "fax": "68875817"
+            }];
+        localStorage.setItem('billings',
+            JSON.stringify(contacts));
+
 
     }]);
 

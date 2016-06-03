@@ -1,64 +1,13 @@
 angular.module("app").controller("contractEditCtrl", ["$scope", "dataRepository",
     function ($scope, dataRepository) {
-        $scope.contact =
-        {
-            "contractId": "123",
-            "company": "careerbuilder",
-            "address": "US",
-            "postcode": "100100",
-            "regNumber": "reg123",
-            "primaryContact": "chunmei",
-            "title": "software engineer",
-            "email": "chunmei@cb.com",
-            "phone": "150xxxxxx",
-            "fax": "77887xxxx"
-        };
-
-        $scope.bill =
-        {
-            "contractId": "123",
-            "company": "careerbuilder-china",
-            "address": "shanghai",
-            "postcode": "200120",
-            "primaryContact": "shenghua",
-            "title": "software engineer",
-            "email": "shenghua@cb.com",
-            "phone": "188xxxxxx",
-            "fax": "68875817"
-        };
-
+        $scope.contact = dataRepository.getContact('123');
+        $scope.bill = dataRepository.getBillingInfo('123');
         $scope.contract = dataRepository.getContract("123");
 
-        $scope.groups = ["BrightMinds", "JobsCentral", "JobsCentral Learning Fair", "JobsCentral Learning", "Talent Network"];
-        $scope.productLines =
-            ["Niche Sites", "Employer Services", "Email and Display Ads", "BannerAds", "Other Revenue", "Job Postings", "Human Capital Software Solutions"];
-
-        //$scope.productLines = [
-        //    {"BrightMinds": ["Niche Sites", "Employer Services"]},
-        //    {"JobsCentral": ["Employer Services", "Email and Display Ads", "BannerAds", "Other Revenue", "Job Postings"]},
-        //    {"JobsCentral Learning Fair": ["BannerAds"]},
-        //    {"JobsCentral Learning": ["Email and Display Ads", "Other Revenue", "Job Postings"]},
-        //    {"Talent Network": ["Human Capital Software Solutions"]}];
-        $scope.subLines = ["RDB", "BannerAds", "Magazine", "Talent Network International", "Job Postings", "LearningSolutions", "Featured Employer", "Direct Email", "Smart Jobs"];
-
-        //$scope.subLines = [
-        //    {"Niche Sites":["BannerAds", "Consulting", "Direct Email", "Job Posting-PPU"]},
-        //    {"Job Postings":["Featured Employer", "Job Posting-PPU", "Job Postings"]},
-        //    {"Employer Services":["Magazine", "Job Postings", "LearningSolutions"]},
-        //    {"Human Capital Software Solutions":["Talent Network International"]}
-        //];
-
+        $scope.groups = dataRepository.getGroups();
+        $scope.productLines = dataRepository.getLines();
         $scope.products = dataRepository.getProducts();
-
-
-
-        //$scope.updateProducts = function () {
-        //    $scope.displayProducts = [];
-        //    for (var i = 0; i < $scope.products.length; i++) {
-        //        product = $scope.products[i];
-        //
-        //    }
-        //};
+        $scope.subLines = dataRepository.getSublines();
 
         $scope.currentUser = window.localStorage.getItem('user');
         $scope.taxRate = 0.07;
@@ -138,15 +87,7 @@ angular.module("app").controller("contractEditCtrl", ["$scope", "dataRepository"
 
             $scope.countPrices();
         };
-
-//$scope.$watch('contract.products', function (newValue, oldValue) {
-//    console.log(newValue);
-//    console.log(oldValue);
-//
-//    $scope.countPrices();
-//});
-
-// ng-blur or $watch
+        
         $scope.countPrices = function () {
             var totalNonGST = 0;
             var totalGST = 0;
