@@ -1,15 +1,23 @@
 angular.module('app')
-    .service('productsRepository', [
+    .service('dataRepository', [
         function () {
-            this.get = function () {
+            this.getProducts = function () {
                 return JSON.parse(window.localStorage.getItem('products'));
             };
-        }
-    ])
-    .service('contractsRepository', [
-        function () {
-            this.get = function () {
-                return window.localStorage.getItem('test');
-            }
+
+            this.getContracts = function () {
+                return JSON.parse(window.localStorage.getItem('contracts'));
+            };
+
+            this.getContract = function (contractId) {
+                var contracts = this.getContracts();
+                for (var i = 0; i < contracts.length; i++) {
+                    if (contracts[i].id == contractId) {
+                        return contracts[i];
+                    }
+                }
+
+                return {};
+            };
         }
     ]);
