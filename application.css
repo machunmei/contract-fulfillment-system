@@ -27,3 +27,46 @@
     font-size: medium;
     color: darkblue;
 }
+
+#contract-list{
+  //color: red;
+}
+
+#contract-list .tb-contracts{
+  background-color: #eaeaea;
+}
+
+#contract-list .tb-contracts .tb-product{
+  border-color: green;
+  border-style: dashed;
+  border-width: thin;
+}
+
+#contract-filter{
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.filter{
+    width: 40% !important;
+    border-style: dashed;
+    padding: 10px;
+    border-width: thin;
+}
+
+.filter-item{
+  margin-bottom: 2px;
+}
+
+.tb_contract_icons{
+  margin-left: 5px;
+}
+
+.btn-filter{
+    margin-top: 10px;
+}
+
+.contract-list-title{
+    margin-bottom: 20px;
+}
+

@@ -200,8 +200,7 @@ $scope.showHideProducts = function(contract){
 }
 
 $scope.filterRules = [
-  {"key": "companyName", "operator": "=", "value":"Careerbuilder"},
-  {"key": "status", "operator": "=", "value":"pending"}
+  {"key": "companyName", "operator": "=", "value":"Careerbuilder"}
 ];
 $scope.filterKeys = [
   {"key" : "companyName", "value": "Company Name"},
@@ -261,10 +260,11 @@ function passFilter(contract, filterRule) {
 
 function passRules(contract, filterRules) {
   for(var i=0; i<filterRules.length; i++){
-    if(passFilter(contract, filterRules[i])){
-      return true;
+    if(!passFilter(contract, filterRules[i])){
+      return false;
     }
   }
+  return true;
 }
 
 }]);
